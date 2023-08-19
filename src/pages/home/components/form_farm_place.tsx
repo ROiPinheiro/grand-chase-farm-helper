@@ -15,6 +15,7 @@ import {
 import * as React from "react";
 
 import { useForm, Controller } from "react-hook-form";
+import { usePlacesToFarmStore } from "../../../store/places-to-farm-store";
 
 export default function FormFarmPlace() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -22,18 +23,14 @@ export default function FormFarmPlace() {
 
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
-      firstName: "",
+      placeToFarmName: "",
     },
   });
 
-  function onSubmit(data: { firstName: string }) {
-    console.log(data);
-  }
+  const { addPlaceToFarm } = usePlacesToFarmStore();
 
-  function onModalClose() {
-    reset();
-    console.log("reset");
-
+  function onSubmit(data: { placeToFarmName: string }) {
+    addPlaceToFarm(data.placeToFarmName);
     onClose();
   }
 
@@ -43,32 +40,35 @@ export default function FormFarmPlace() {
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
-        onClose={() => onModalClose()}
+        onClose={onClose}
+        onCloseComplete={reset}
         isOpen={isOpen}
         isCentered
       >
         <AlertDialogOverlay />
 
         <AlertDialogContent>
-          <AlertDialogHeader>New place to farm form</AlertDialogHeader>
+          <AlertDialogHeader>Add new place to farm</AlertDialogHeader>
           <AlertDialogCloseButton />
           <form onSubmit={handleSubmit(onSubmit)}>
             <AlertDialogBody>
-              <span>Add here the name of place you want to add</span>
-              <Divider />
+              <span>Add here the name of place you want to farm</span>
+              <Divider className="pb-2" />
 
               <Controller
-                name="firstName"
+                name="placeToFarmName"
                 control={control}
                 render={({ field }) => (
                   <>
-                    <FormLabel htmlFor="input-name-place">Name</FormLabel>
+                    <FormLabel className="pt-2" htmlFor="input-name-place">
+                      Place name
+                    </FormLabel>
                     <Input
                       placeholder="Exemple: TOD 5F"
                       id="input-name-place"
                       name="input-name-place"
                       onChange={field.onChange}
-                      value={field.value}
+                      defaultValue={field.value}
                     />
                   </>
                 )}

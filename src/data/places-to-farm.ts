@@ -3,7 +3,7 @@ export interface PlaceToFarm {
   name: string;
 }
 
-export const placesToFarms: PlaceToFarm[] = [
+export const defaultPlacesToFarm: PlaceToFarm[] = [
   {
     id: 1,
     name: "5F",

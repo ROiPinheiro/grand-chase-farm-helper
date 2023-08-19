@@ -1,4 +1,4 @@
-import { useCharactersStore } from "../store/character-store";
+import { useCharactersStore } from "../../../store/character-store";
 import {
   Table,
   Thead,

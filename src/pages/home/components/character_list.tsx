@@ -1,4 +1,4 @@
-import { characters } from "../data/characters";
+import { characters } from "../../../data/characters";
 
 import {
   AlertDialog,
@@ -14,14 +14,16 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState, useRef } from "react";
-import { placesToFarms as placesToFarm } from "../data/places-to-farm";
+import { usePlacesToFarmStore } from "../../../store/places-to-farm-store";
 
 export default function CharacterList() {
   const [char, setChar] = useState<Character>(characters[0]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
-  function onCharClick(char: any) {
+  const { hardReset, placesToFarm } = usePlacesToFarmStore();
+
+  function onCharClick(char: Character) {
     setChar(char);
     onOpen();
   }
@@ -29,7 +31,7 @@ export default function CharacterList() {
   return (
     <>
       <div>
-        <h2 className="text-4xl">Select characters to list</h2>
+        <h2 className="text-4xl pb-6 font-bold">Select characters to list</h2>
 
         <div>
           {characters.map((char) => (
@@ -44,6 +46,10 @@ export default function CharacterList() {
             </button>
           ))}
         </div>
+
+        <Button colorScheme="red" onClick={hardReset}>
+          Hard reset places to farm
+        </Button>
       </div>
       <AlertDialog
         motionPreset="slideInBottom"
