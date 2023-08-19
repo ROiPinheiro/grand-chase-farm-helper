@@ -12,7 +12,7 @@ import {
   Checkbox,
   Tooltip,
 } from "@chakra-ui/react";
-import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 export default function DailyFarmList() {
   const { selectedCharacters, checkFarmPlace, toggleAllFarmPlaces } =
