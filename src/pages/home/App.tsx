@@ -1,4 +1,3 @@
-import "./App.css";
 import "../../index.css";
 import CharacterList from "./components/character_list";
 import FormFarmPlace from "./components/form_farm_place";

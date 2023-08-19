@@ -12,11 +12,15 @@ import {
   Checkbox,
   Tooltip,
 } from "@chakra-ui/react";
-import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
+import { CheckIcon, CloseIcon, DeleteIcon } from "@chakra-ui/icons";
 
 export default function DailyFarmList() {
-  const { selectedCharacters, checkFarmPlace, toggleAllFarmPlaces } =
-    useCharactersStore();
+  const {
+    selectedCharacters,
+    checkFarmPlace,
+    toggleAllFarmPlaces,
+    deleteCharacter,
+  } = useCharactersStore();
 
   return (
     <TableContainer>
@@ -87,6 +91,14 @@ export default function DailyFarmList() {
                     }
                     aria-label="update-all"
                     icon={<CloseIcon />}
+                  />
+                </Tooltip>
+                <Tooltip label="Delete character">
+                  <IconButton
+                    onClick={() => deleteCharacter(selectedChar.character)}
+                    aria-label="update-all"
+                    icon={<DeleteIcon />}
+                    colorScheme="red"
                   />
                 </Tooltip>
               </Td>

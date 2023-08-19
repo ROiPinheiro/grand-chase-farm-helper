@@ -22,6 +22,8 @@ interface CharactersState {
   toggleAllFarmPlaces: (character: Character, value: boolean) => void;
 
   hardReset: () => void;
+
+  deleteCharacter: (character: Character) => void;
 }
 
 const initialState: CharactersFarm[] = [];
@@ -96,6 +98,24 @@ export const useCharactersStore = create<CharactersState>()(
       hardReset() {
         set({
           selectedCharacters: [],
+        });
+      },
+
+      deleteCharacter(character) {
+        const actualCharacters: CharactersFarm[] = get().selectedCharacters;
+
+        const actualCharIndex = actualCharacters.findIndex(
+          (item) => item.character.id == character.id
+        );
+
+        if (actualCharIndex == -1) {
+          return;
+        }
+
+        set({
+          selectedCharacters: actualCharacters.filter(
+            (i) => i.character.id != character.id
+          ),
         });
       },
     }),
