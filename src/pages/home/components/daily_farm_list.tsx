@@ -7,63 +7,97 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
+  IconButton,
+  Checkbox,
+  Tooltip,
 } from "@chakra-ui/react";
+import { CheckIcon, CloseIcon, EditIcon } from "@chakra-ui/icons";
 
 export default function DailyFarmList() {
-  const { selectedCharacters } = useCharactersStore();
-
-  console.log(selectedCharacters);
+  const { selectedCharacters, checkFarmPlace, toggleAllFarmPlaces } =
+    useCharactersStore();
 
   return (
     <TableContainer>
       <Table variant="simple">
-        <TableCaption>Imperial to metric conversion factors</TableCaption>
         <Thead>
           <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
+            <Th>Character</Th>
+            <Th>Places to farm</Th>
+            <Th>Options</Th>
           </Tr>
         </Thead>
         <Tbody>
           {selectedCharacters?.map((selectedChar) => (
-            <Tr key={selectedChar.id}>
+            <Tr key={selectedChar.character.id}>
               <Td>
                 <div>
                   <img
-                    src={selectedChar.char.src}
-                    alt={selectedChar.char.name}
+                    src={selectedChar.character.src}
+                    alt={selectedChar.character.name}
                     width="32"
                     height="32"
                   />
                 </div>
               </Td>
               <Td>
-                <div className="flex ">
-                  {selectedChar.selectedFarmPlaces.map((farmPlace) => (
-                    <label key={farmPlace.name} htmlFor={farmPlace.name}>
-                      {farmPlace.name}
-                      <input
-                        type="checkbox"
-                        name="tot_check"
-                        id="tot_check"
-                        onChange={() =>
-                          (farmPlace.completed = !farmPlace.completed)
-                        }
-                        checked={farmPlace.completed}
-                      />
-                    </label>
-                  ))}
+                <div className="justify-between">
+                  {selectedChar.selectedFarmPlaces.map((farmPlace) => {
+                    const farmPlaceId = `${farmPlace.name}_${selectedChar.character.name}`;
+
+                    return (
+                      <label
+                        className="flex items-center"
+                        key={farmPlaceId}
+                        htmlFor={farmPlaceId}
+                      >
+                        <Checkbox
+                          name={farmPlaceId}
+                          id={farmPlaceId}
+                          onChange={(e) =>
+                            checkFarmPlace(
+                              selectedChar.character,
+                              farmPlace.id,
+                              e.target.checked
+                            )
+                          }
+                          isChecked={farmPlace.completed}
+                        />
+                        <span className="pl-1">{farmPlace.name}</span>
+                      </label>
+                    );
+                  })}
                 </div>
+              </Td>
+              <Td>
+                <Tooltip label="Check all items">
+                  <IconButton
+                    onClick={() =>
+                      toggleAllFarmPlaces(selectedChar.character, true)
+                    }
+                    aria-label="update-all"
+                    icon={<CheckIcon />}
+                  />
+                </Tooltip>
+                <Tooltip label="Uncheck all items">
+                  <IconButton
+                    onClick={() =>
+                      toggleAllFarmPlaces(selectedChar.character, false)
+                    }
+                    aria-label="update-all"
+                    icon={<CloseIcon />}
+                  />
+                </Tooltip>
               </Td>
             </Tr>
           ))}
         </Tbody>
         <Tfoot>
           <Tr>
-            <Th>To convert</Th>
-            <Th>into</Th>
+            <Th>Character</Th>
+            <Th>Places to farm</Th>
+            <Th>Options</Th>
           </Tr>
         </Tfoot>
       </Table>

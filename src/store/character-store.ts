@@ -1,51 +1,101 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { characters } from "../data/characters";
+import { PlaceToFarm } from "../data/places-to-farm";
 
-export interface FarmPlace {
-  name: string;
-  enabled: boolean;
-  completed: boolean;
+export interface FarmPlace extends PlaceToFarm {
+  completed?: boolean;
 }
 
 export interface CharactersFarm {
-  id: number;
-  char: Character;
+  character: Character;
   selectedFarmPlaces: FarmPlace[];
 }
 
 interface CharactersState {
   selectedCharacters: CharactersFarm[];
-  increase: (char: CharactersFarm) => void;
+  addCharacter: (character: CharactersFarm) => void;
+  checkFarmPlace: (
+    character: Character,
+    farmPlaceIndex: number,
+    value: boolean
+  ) => void;
+  toggleAllFarmPlaces: (character: Character, value: boolean) => void;
+
   hardReset: () => void;
 }
+
+const initialState: CharactersFarm[] = [];
 
 export const useCharactersStore = create<CharactersState>()(
   persist(
     (set, get) => ({
-      selectedCharacters: [
-        {
-          char: characters[3],
-          id: 1,
-          selectedFarmPlaces: [
-            {
-              name: "5F",
-              completed: true,
-              enabled: false,
-            },
-          ],
-        },
-      ],
-      increase: (char) => {
-        return set(() => {
-          return { selectedCharacters: [...get().selectedCharacters, char] };
-        });
+      selectedCharacters: initialState,
+      addCharacter(char) {
+        console.log(char);
+
+        const actualCharacters = get().selectedCharacters;
+
+        const duplicatedChar = actualCharacters.find(
+          (item) => item.character.id == char.character.id
+        );
+
+        if (duplicatedChar) {
+          duplicatedChar.selectedFarmPlaces = char.selectedFarmPlaces;
+        }
+
+        set({ selectedCharacters: [...actualCharacters, char] });
+      },
+      checkFarmPlace(character, farmPlaceIndex, value) {
+        const actualCharacters = get().selectedCharacters;
+
+        const actualCharIndex = actualCharacters.findIndex(
+          (item) => item.character.id == character.id
+        );
+
+        if (actualCharIndex == -1) {
+          return;
+        }
+
+        const actualChar = actualCharacters[actualCharIndex];
+
+        console.log(actualChar, farmPlaceIndex);
+
+        const farmIndex = actualChar.selectedFarmPlaces.findIndex(
+          (i) => i.id == farmPlaceIndex
+        );
+
+        if (farmIndex == -1) {
+          return;
+        }
+
+        actualChar.selectedFarmPlaces[farmIndex].completed = value;
+
+        console.log(actualChar);
+
+        actualCharacters[actualCharIndex] = actualChar;
+
+        set({ selectedCharacters: actualCharacters });
+      },
+      toggleAllFarmPlaces: (character, value) => {
+        const actualCharacters: CharactersFarm[] = get().selectedCharacters;
+
+        const actualCharIndex = actualCharacters.findIndex(
+          (item) => item.character.id == character.id
+        );
+
+        if (actualCharIndex == -1) {
+          return;
+        }
+
+        actualCharacters[actualCharIndex].selectedFarmPlaces.forEach(
+          (i) => (i.completed = value)
+        );
+
+        set({ selectedCharacters: actualCharacters });
       },
       hardReset() {
-        return set(() => {
-          return {
-            selectedCharacters: [],
-          };
+        set({
+          selectedCharacters: [],
         });
       },
     }),

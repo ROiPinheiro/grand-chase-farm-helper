@@ -18,6 +18,8 @@ import { useForm, Controller } from "react-hook-form";
 import { usePlacesToFarmStore } from "../../../store/places-to-farm-store";
 
 export default function FormFarmPlace() {
+  const { addPlaceToFarm } = usePlacesToFarmStore();
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
 
@@ -26,8 +28,6 @@ export default function FormFarmPlace() {
       placeToFarmName: "",
     },
   });
-
-  const { addPlaceToFarm } = usePlacesToFarmStore();
 
   function onSubmit(data: { placeToFarmName: string }) {
     addPlaceToFarm(data.placeToFarmName);

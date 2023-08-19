@@ -10,23 +10,76 @@ import {
   AlertDialogOverlay,
   Button,
   Checkbox,
-  FormControl,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import { usePlacesToFarmStore } from "../../../store/places-to-farm-store";
+import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { FarmPlace, useCharactersStore } from "../../../store/character-store";
+import { PlaceToFarm } from "../../../data/places-to-farm";
+
+interface FromPlaceToFarm extends PlaceToFarm {
+  checked: boolean;
+}
+
+interface FormData {
+  character?: Character;
+  selectedFarmPlaces: FromPlaceToFarm[];
+}
 
 export default function CharacterList() {
-  const [char, setChar] = useState<Character>(characters[0]);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
 
   const { hardReset, placesToFarm } = usePlacesToFarmStore();
+  const { addCharacter } = useCharactersStore();
 
   function onCharClick(char: Character) {
-    setChar(char);
+    setValue("character", char);
     onOpen();
   }
+
+  function onSubmit(data: FormData) {
+    console.log("on submit", data);
+
+    const placesFiltered = data.selectedFarmPlaces.filter(
+      (place) => place.checked == true
+    );
+
+    if (placesFiltered.length == 0) {
+      onClose();
+      return;
+    }
+
+    const selected: FarmPlace[] = placesFiltered.map((item) => {
+      return {
+        id: item.id,
+        name: item.name,
+        completed: false,
+      };
+    });
+
+    addCharacter({
+      character: data.character!,
+      selectedFarmPlaces: selected,
+    });
+    onClose();
+  }
+
+  const { control, handleSubmit, reset, setValue, watch } = useForm<FormData>({
+    defaultValues: {
+      selectedFarmPlaces: placesToFarm,
+    },
+  });
+
+  const actualChar = watch("character");
+
+  const { fields } = useFieldArray({
+    control,
+    name: "selectedFarmPlaces",
+  });
+
+  // console.log(placesToFarm);
 
   return (
     <>
@@ -55,31 +108,50 @@ export default function CharacterList() {
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
         onClose={onClose}
+        onCloseComplete={reset}
         isOpen={isOpen}
         isCentered
       >
         <AlertDialogOverlay />
 
         <AlertDialogContent>
-          <FormControl>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <AlertDialogHeader>
               Select places to farm with:
-              <span className="capitalize  font-semibold">{char.name}</span>
+              <span className="capitalize  font-semibold">
+                {actualChar?.name}
+              </span>
             </AlertDialogHeader>
             <AlertDialogCloseButton />
             <AlertDialogBody>
               <div className="flex justify-between">
                 <img
-                  src={char?.src ?? ""}
-                  alt={char?.name ?? ""}
+                  src={actualChar?.src ?? ""}
+                  alt={actualChar?.name ?? ""}
                   width="62"
                   height="62"
                 />
 
                 <div>
-                  {placesToFarm.map((place) => (
-                    <Checkbox key={place.id}>{place.name}</Checkbox>
-                  ))}
+                  {fields.map((fieldItem, index) => {
+                    // console.log(fieldItem);
+
+                    return (
+                      <Controller
+                        key={fieldItem.id}
+                        control={control}
+                        name={`selectedFarmPlaces.${index}.checked`}
+                        render={({ field }) => (
+                          <Checkbox
+                            onChange={(e) => field.onChange(e.target.checked)}
+                            isChecked={field.value}
+                          >
+                            {fields[index].name}
+                          </Checkbox>
+                        )}
+                      />
+                    );
+                  })}
                 </div>
               </div>
             </AlertDialogBody>
@@ -91,7 +163,7 @@ export default function CharacterList() {
                 Add
               </Button>
             </AlertDialogFooter>
-          </FormControl>
+          </form>
         </AlertDialogContent>
       </AlertDialog>
     </>
