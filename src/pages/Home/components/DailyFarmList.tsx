@@ -1,17 +1,5 @@
 import { useCharactersStore } from "../../../store/character-store";
-import {
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
-  TableContainer,
-  IconButton,
-  Checkbox,
-  Tooltip,
-} from "@chakra-ui/react";
+import { IconButton, Checkbox, Tooltip, Divider } from "@chakra-ui/react";
 import {
   CheckIcon,
   CloseIcon,
@@ -28,36 +16,36 @@ export default function DailyFarmList() {
   } = useCharactersStore();
 
   return (
-    <TableContainer className="w-full">
-      <Table size="md" variant="simple">
-        <Thead>
-          <Tr>
-            <Th>Character</Th>
-            <Th>Places to farm</Th>
-            <Th className="flex justify-end">Options</Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {selectedCharacters?.map((selectedChar) => (
-            <Tr key={selectedChar.character.id}>
-              <Td>
-                <div>
-                  <img
-                    src={selectedChar.character.src}
-                    alt={selectedChar.character.name}
-                    width="32"
-                    height="32"
-                  />
-                </div>
-              </Td>
-              <Td>
-                <div className="justify-between">
+    <div>
+      <div className="grid grid-cols-3 uppercase font-bold text-xs">
+        <span>Character</span>
+        <span>Places to farm</span>
+        <span className="flex justify-end">Options</span>
+      </div>
+
+      <div>
+        {selectedCharacters?.map((selectedChar) => (
+          <>
+            <div
+              className="grid grid-cols-3 pb-2 pt-2"
+              key={selectedChar.character.id}
+            >
+              <div className="flex pt-2 pb-2  items-center ">
+                <img
+                  src={selectedChar.character.src}
+                  alt={selectedChar.character.name}
+                  width="32"
+                  height="32"
+                />
+              </div>
+              <div>
+                <div className="justify-between pt-2 pb-2 ">
                   {selectedChar.selectedFarmPlaces.map((farmPlace) => {
                     const farmPlaceId = `${farmPlace.name}_${selectedChar.character.name}`;
 
                     return (
                       <label
-                        className="flex items-center"
+                        className="flex   items-center"
                         key={farmPlaceId}
                         htmlFor={farmPlaceId}
                       >
@@ -78,10 +66,11 @@ export default function DailyFarmList() {
                     );
                   })}
                 </div>
-              </Td>
-              <Td className="flex gap-2 justify-end">
+              </div>
+              <div className="flex items-center p-2 gap-2 justify-end">
                 <Tooltip label="Check all items">
                   <IconButton
+                    size="sm"
                     onClick={() =>
                       toggleAllFarmPlaces(selectedChar.character, true)
                     }
@@ -91,6 +80,7 @@ export default function DailyFarmList() {
                 </Tooltip>
                 <Tooltip label="Uncheck all items">
                   <IconButton
+                    size="sm"
                     onClick={() =>
                       toggleAllFarmPlaces(selectedChar.character, false)
                     }
@@ -100,6 +90,7 @@ export default function DailyFarmList() {
                 </Tooltip>
                 <Tooltip label="Update character | not working">
                   <IconButton
+                    size="sm"
                     onClick={() => null}
                     aria-label="update-character"
                     icon={<SettingsIcon />}
@@ -109,24 +100,19 @@ export default function DailyFarmList() {
 
                 <Tooltip label="Delete character">
                   <IconButton
+                    size="sm"
                     onClick={() => deleteCharacter(selectedChar.character)}
                     aria-label="delete"
                     icon={<DeleteIcon />}
                     colorScheme="red"
                   />
                 </Tooltip>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-        <Tfoot>
-          <Tr>
-            <Th>Character</Th>
-            <Th>Places to farm</Th>
-            <Th className="flex justify-end">Options</Th>
-          </Tr>
-        </Tfoot>
-      </Table>
-    </TableContainer>
+              </div>
+            </div>
+            <Divider />
+          </>
+        ))}
+      </div>
+    </div>
   );
 }
