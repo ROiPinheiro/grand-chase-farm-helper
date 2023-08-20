@@ -13,11 +13,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import * as React from "react";
+import { Controller, useForm } from "react-hook-form";
+import PageContent from "../../components/PageContent";
+import PageHeader from "../../components/PageHeader";
+import { usePlacesToFarmStore } from "../../store/places-to-farm-store";
 
-import { useForm, Controller } from "react-hook-form";
-import { usePlacesToFarmStore } from "../../../store/places-to-farm-store";
-
-export default function FormFarmPlace() {
+function FarmPlacesPage() {
   const { addPlaceToFarm } = usePlacesToFarmStore();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,8 +36,13 @@ export default function FormFarmPlace() {
   }
 
   return (
-    <>
+    <PageContent>
+      <PageHeader text="Farm places" />
+
       <Button onClick={onOpen}>Add new place to farm</Button>
+
+      <div>In construction...</div>
+
       <AlertDialog
         motionPreset="slideInBottom"
         leastDestructiveRef={cancelRef}
@@ -85,6 +91,8 @@ export default function FormFarmPlace() {
           </form>
         </AlertDialogContent>
       </AlertDialog>
-    </>
+    </PageContent>
   );
 }
+
+export default FarmPlacesPage;

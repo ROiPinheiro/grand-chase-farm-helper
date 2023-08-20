@@ -12,7 +12,12 @@ import {
   Checkbox,
   Tooltip,
 } from "@chakra-ui/react";
-import { CheckIcon, CloseIcon, DeleteIcon } from "@chakra-ui/icons";
+import {
+  CheckIcon,
+  CloseIcon,
+  DeleteIcon,
+  SettingsIcon,
+} from "@chakra-ui/icons";
 
 export default function DailyFarmList() {
   const {
@@ -23,13 +28,13 @@ export default function DailyFarmList() {
   } = useCharactersStore();
 
   return (
-    <TableContainer>
-      <Table variant="simple">
+    <TableContainer className="w-full">
+      <Table size="md" variant="simple">
         <Thead>
           <Tr>
             <Th>Character</Th>
             <Th>Places to farm</Th>
-            <Th>Options</Th>
+            <Th className="flex justify-end">Options</Th>
           </Tr>
         </Thead>
         <Tbody>
@@ -74,13 +79,13 @@ export default function DailyFarmList() {
                   })}
                 </div>
               </Td>
-              <Td>
+              <Td className="flex gap-2 justify-end">
                 <Tooltip label="Check all items">
                   <IconButton
                     onClick={() =>
                       toggleAllFarmPlaces(selectedChar.character, true)
                     }
-                    aria-label="update-all"
+                    aria-label="check-all"
                     icon={<CheckIcon />}
                   />
                 </Tooltip>
@@ -89,14 +94,23 @@ export default function DailyFarmList() {
                     onClick={() =>
                       toggleAllFarmPlaces(selectedChar.character, false)
                     }
-                    aria-label="update-all"
+                    aria-label="uncheck-all"
                     icon={<CloseIcon />}
                   />
                 </Tooltip>
+                <Tooltip label="Update character | not working">
+                  <IconButton
+                    onClick={() => null}
+                    aria-label="update-character"
+                    icon={<SettingsIcon />}
+                    colorScheme="yellow"
+                  />
+                </Tooltip>
+
                 <Tooltip label="Delete character">
                   <IconButton
                     onClick={() => deleteCharacter(selectedChar.character)}
-                    aria-label="update-all"
+                    aria-label="delete"
                     icon={<DeleteIcon />}
                     colorScheme="red"
                   />
@@ -109,7 +123,7 @@ export default function DailyFarmList() {
           <Tr>
             <Th>Character</Th>
             <Th>Places to farm</Th>
-            <Th>Options</Th>
+            <Th className="flex justify-end">Options</Th>
           </Tr>
         </Tfoot>
       </Table>
