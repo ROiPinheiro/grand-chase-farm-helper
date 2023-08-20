@@ -9,6 +9,7 @@ import App from "../pages/App";
 import OptionsPage from "../pages/Options";
 import Home from "../pages/Home";
 import FarmPlacesPage from "../pages/FarmPlaces";
+import HelperLinksPage from "../pages/HelperLinks";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +18,7 @@ export const router = createBrowserRouter(
       <Route path="options" element={<OptionsPage />} />
       <Route path="character-selection" element={<CharacterSelectionPage />} />
       <Route path="places" element={<FarmPlacesPage />} />
+      <Route path="helper-links" element={<HelperLinksPage />} />
     </Route>
   )
 );

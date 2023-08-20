@@ -73,6 +73,21 @@ export default function SideMenu() {
             </Button>
           </Link>
         </li>
+        <li className="pb-2">
+          <Link to="/helper-links">
+            <Button
+              colorScheme={
+                location.pathname == "/helper-links"
+                  ? selectedButtonColor
+                  : undefined
+              }
+              size={"sm"}
+              width={"full"}
+            >
+              Helper Links
+            </Button>
+          </Link>
+        </li>
       </ul>
     </aside>
   );

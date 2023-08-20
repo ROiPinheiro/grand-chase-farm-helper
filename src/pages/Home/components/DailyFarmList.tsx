@@ -25,11 +25,8 @@ export default function DailyFarmList() {
 
       <div>
         {selectedCharacters?.map((selectedChar) => (
-          <>
-            <div
-              className="grid grid-cols-3 pb-2 pt-2"
-              key={selectedChar.character.id}
-            >
+          <div key={selectedChar.character.id}>
+            <div className="grid grid-cols-3 pb-2 pt-2">
               <div className="flex pt-2 pb-2  items-center ">
                 <img
                   src={selectedChar.character.src}
@@ -110,7 +107,7 @@ export default function DailyFarmList() {
               </div>
             </div>
             <Divider />
-          </>
+          </div>
         ))}
       </div>
     </div>
