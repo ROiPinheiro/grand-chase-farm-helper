@@ -1,68 +1,70 @@
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+export {};
 
-export interface Item {
-  id: string;
-  name: string;
-}
+// import { create } from "zustand";
+// import { persist } from "zustand/middleware";
 
-export interface ItemPurchase extends Item {
-  bought: boolean;
-}
+// export interface Item {
+//   id: string;
+//   name: string;
+// }
 
-export type PurchaseType = "DAILY" | "WEEKLY";
+// export interface ItemPurchase extends Item {
+//   bought: boolean;
+// }
 
-export interface DailyPurchasesStoreState {
-  dailyPurchases: ItemPurchase[];
-  weeklyPurchases: ItemPurchase[];
+// export type PurchaseType = "DAILY" | "WEEKLY";
 
-  addPurchase: (item: ItemPurchase, type: PurchaseType) => void;
-  checkFarmPlace: (
-    character: Character,
-    farmPlaceIndex: number,
-    value: boolean
-  ) => void;
-  toggleAllPurchase: (value: boolean, type: PurchaseType) => void;
+// export interface DailyPurchasesStoreState {
+//   dailyPurchases: ItemPurchase[];
+//   weeklyPurchases: ItemPurchase[];
 
-  hardResetPurchases: (type: PurchaseType) => void;
+//   addPurchase: (item: ItemPurchase, type: PurchaseType) => void;
+//   checkFarmPlace: (
+//     character: Character,
+//     farmPlaceIndex: number,
+//     value: boolean
+//   ) => void;
+//   toggleAllPurchase: (value: boolean, type: PurchaseType) => void;
 
-  removePurchase: (item: ItemPurchase, type: PurchaseType) => void;
-}
+//   hardResetPurchases: (type: PurchaseType) => void;
 
-const initialDailyState: ItemPurchase[] = [];
-const initialWeeklyState: ItemPurchase[] = [];
+//   removePurchase: (item: ItemPurchase, type: PurchaseType) => void;
+// }
 
-export const useCharactersStore = create<DailyPurchasesStoreState>()(
-  persist(
-    (set, get) => ({
-      dailyPurchases: initialDailyState,
-      weeklyPurchases: initialWeeklyState,
+// const initialDailyState: ItemPurchase[] = [];
+// const initialWeeklyState: ItemPurchase[] = [];
 
-      addPurchase(item: ItemPurchase, type: PurchaseType) {
-        if (type == "DAILY") {
-          const actualDailyPurchases: ItemPurchase[] = get().dailyPurchases;
-          set({ dailyPurchases: [...actualDailyPurchases, item] });
-        }
+// export const useCharactersStore = create<DailyPurchasesStoreState>()(
+//   persist(
+//     (set, get) => ({
+//       dailyPurchases: initialDailyState,
+//       weeklyPurchases: initialWeeklyState,
 
-        if (type == "WEEKLY") {
-          const actualWeeklyPurchases: ItemPurchase[] = get().weeklyPurchases;
-          set({ weeklyPurchases: [...actualWeeklyPurchases, item] });
-        }
-      },
-      checkFarmPlace(
-        character: Character,
-        farmPlaceIndex: number,
-        value: boolean
-      ) {},
-      toggleAllPurchase(value: boolean, type: PurchaseType) {},
+//       addPurchase(item: ItemPurchase, type: PurchaseType) {
+//         if (type == "DAILY") {
+//           const actualDailyPurchases: ItemPurchase[] = get().dailyPurchases;
+//           set({ dailyPurchases: [...actualDailyPurchases, item] });
+//         }
 
-      hardResetPurchases(type: PurchaseType) {},
+//         if (type == "WEEKLY") {
+//           const actualWeeklyPurchases: ItemPurchase[] = get().weeklyPurchases;
+//           set({ weeklyPurchases: [...actualWeeklyPurchases, item] });
+//         }
+//       },
+//       checkFarmPlace(
+//         character: Character,
+//         farmPlaceIndex: number,
+//         value: boolean
+//       ) {},
+//       toggleAllPurchase(value: boolean, type: PurchaseType) {},
 
-      removePurchase(item: ItemPurchase, type: PurchaseType) {},
-    }),
-    {
-      name: "purchases-store",
-      version: 0,
-    }
-  )
-);
+//       hardResetPurchases(type: PurchaseType) {},
+
+//       removePurchase(item: ItemPurchase, type: PurchaseType) {},
+//     }),
+//     {
+//       name: "purchases-store",
+//       version: 0,
+//     }
+//   )
+// );
