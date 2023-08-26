@@ -1,7 +1,9 @@
-import { toast } from "react-toastify";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { PlaceToFarm } from "../data/places-to-farm";
+import { createStandaloneToast } from "@chakra-ui/react";
+
+const { toast } = createStandaloneToast();
 
 export interface FarmPlace extends PlaceToFarm {
   completed?: boolean;
@@ -41,7 +43,10 @@ export const useCharactersStore = create<CharactersState>()(
         );
 
         if (duplicatedChar) {
-          toast.error("Character already selected");
+          toast({
+            title: "Character already selected",
+            status: "error",
+          });
           return;
         }
 

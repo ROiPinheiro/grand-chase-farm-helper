@@ -64,6 +64,7 @@ function CharacterModal() {
         id: item.id,
         name: item.name,
         completed: false,
+        reset: "DAILY",
       };
     });
 
@@ -100,24 +101,22 @@ function CharacterModal() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <AlertDialogHeader>
             Select places to farm with:
-            <span className="capitalize  font-semibold">
-              {selectedCharacter?.name}
+            <span className="capitalize font-semibold">
+              {` ${selectedCharacter?.name}`}
             </span>
           </AlertDialogHeader>
           <AlertDialogCloseButton />
           <AlertDialogBody>
-            <div className="flex justify-between">
-              <img
-                src={selectedCharacter?.src ?? ""}
-                alt={selectedCharacter?.name ?? ""}
-                width="62"
-                height="62"
-              />
-
-              <div>
+            <img
+              src={selectedCharacter?.src ?? ""}
+              alt={selectedCharacter?.name ?? ""}
+              width="32"
+              height="32"
+              className="h-8 w-8"
+            />
+            <div className="mt-4">
+              <div className="grid grid-cols-2">
                 {fields.map((fieldItem, index) => {
-                  // console.log(fieldItem);
-
                   return (
                     <Controller
                       key={fieldItem.id}
@@ -128,7 +127,7 @@ function CharacterModal() {
                           onChange={(e) => field.onChange(e.target.checked)}
                           isChecked={field.value}
                         >
-                          {fields[index].name}
+                          <span className="truncate">{fields[index].name}</span>
                         </Checkbox>
                       )}
                     />

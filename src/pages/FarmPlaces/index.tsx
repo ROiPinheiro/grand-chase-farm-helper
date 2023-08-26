@@ -19,7 +19,7 @@ import PageHeader from "../../components/PageHeader";
 import { usePlacesToFarmStore } from "../../store/places-to-farm-store";
 
 function FarmPlacesPage() {
-  const { addPlaceToFarm } = usePlacesToFarmStore();
+  const { placesToFarm, addPlaceToFarm } = usePlacesToFarmStore();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef(null);
@@ -41,7 +41,11 @@ function FarmPlacesPage() {
 
       <Button onClick={onOpen}>Add new place to farm</Button>
 
-      <div>In construction...</div>
+      <div>
+        {placesToFarm.map((place) => (
+          <div key={place.id}>{place.name}</div>
+        ))}
+      </div>
 
       <AlertDialog
         motionPreset="slideInBottom"
