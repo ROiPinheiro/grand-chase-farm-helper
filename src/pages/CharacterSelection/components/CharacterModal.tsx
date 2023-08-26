@@ -46,7 +46,6 @@ function CharacterModal() {
   });
 
   function onSubmit(data: FormData) {
-    console.log("on submit", data);
     if (selectedCharacter == null) {
       return;
     }

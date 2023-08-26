@@ -22,8 +22,6 @@ export const usePlacesToFarmStore = create<PlacesToFarmState>()(
         const places = get().placesToFarm;
         const lastPlace = places[places.length - 1];
 
-        console.log(placeName);
-
         set({
           placesToFarm: [
             ...get().placesToFarm,

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { PlaceToFarm } from "../data/places-to-farm";
@@ -33,8 +34,6 @@ export const useCharactersStore = create<CharactersState>()(
     (set, get) => ({
       selectedCharacters: initialState,
       addCharacter(char) {
-        console.log(char);
-
         const actualCharacters = get().selectedCharacters;
 
         const duplicatedChar = actualCharacters.find(
@@ -42,7 +41,8 @@ export const useCharactersStore = create<CharactersState>()(
         );
 
         if (duplicatedChar) {
-          duplicatedChar.selectedFarmPlaces = char.selectedFarmPlaces;
+          toast.error("Character already selected");
+          return;
         }
 
         set({ selectedCharacters: [...actualCharacters, char] });
@@ -60,8 +60,6 @@ export const useCharactersStore = create<CharactersState>()(
 
         const actualChar = actualCharacters[actualCharIndex];
 
-        console.log(actualChar, farmPlaceIndex);
-
         const farmIndex = actualChar.selectedFarmPlaces.findIndex(
           (i) => i.id == farmPlaceIndex
         );
@@ -71,8 +69,6 @@ export const useCharactersStore = create<CharactersState>()(
         }
 
         actualChar.selectedFarmPlaces[farmIndex].completed = value;
-
-        console.log(actualChar);
 
         actualCharacters[actualCharIndex] = actualChar;
 

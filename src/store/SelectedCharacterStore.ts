@@ -11,8 +11,6 @@ export const useSelectedCharacterStore = create<SelectedCharacterStore>()(
   (set) => ({
     selectedCharacter: initialState,
     setCharacter(char) {
-      console.log(char);
-
       set({ selectedCharacter: char });
     },
   })

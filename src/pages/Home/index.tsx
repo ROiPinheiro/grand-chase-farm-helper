@@ -1,6 +1,6 @@
 import PageContent from "../../components/PageContent";
 import PageHeader from "../../components/PageHeader";
-import DailyFarmList from "./components/DailyFarmList";
+import DailyFarmList from "./components/DailyFarmGrid";
 
 export default function Home() {
   return (
