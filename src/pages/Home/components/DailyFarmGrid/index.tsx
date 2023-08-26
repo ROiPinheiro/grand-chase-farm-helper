@@ -7,7 +7,7 @@ export default function DailyFarmList() {
   const { selectedCharacters, checkFarmPlace } = useCharactersStore();
 
   return (
-    <div className="grid gap-4 grid-cols-3">
+    <div className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
       {selectedCharacters?.map((selectedChar) => (
         <div key={selectedChar.character.id}>
           <div className="pb-2 pt-2 h-full">
