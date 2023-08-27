@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import FloatActionButton from "../../components/FloatingActionButton";
 import SideMenu from "../../components/SideMenu";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="flex">
       <SideMenu />
       <Outlet />
+      <FloatActionButton />
     </div>
   );
 }
