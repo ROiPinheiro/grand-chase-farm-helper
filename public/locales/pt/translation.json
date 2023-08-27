@@ -1,11 +1,16 @@
 {
   "side_menu_title": "Grand Chase Farm Helper",
-  "side_menu_home": "Home",
+  "side_menu_home": "Início",
   "side_menu_character_selection": "Seleção de Personagens",
   "side_menu_options": "Opções",
   "side_menu_useful_links": "Link's Úteis",
 
   "options_select_language": "Selecione o Idioma",
+
+  "useful_links_page_title": "Link's Úteis",
+  "useful_links_page_description": "Aqui você encontra alguns links que podem ser úteis criados pela comunidade",
+  "useful_links_damage_sheet": "Table de Danos Coreana",
+  "useful_links_damage_calculator": "Calculadora de dano",
 
   "character_selection_title": "Selecione os personagens para farmar"
 }

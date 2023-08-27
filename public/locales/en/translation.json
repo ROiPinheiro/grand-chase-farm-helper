@@ -7,5 +7,10 @@
 
   "options_select_language": "Select Language",
 
+  "useful_links_page_title": "Useful Links",
+  "useful_links_page_description": "Here you will find some links that may be useful created by the community",
+  "useful_links_damage_sheet": "PVE Damage Sheet",
+  "useful_links_damage_calculator": "DamageCalculator",
+
   "character_selection_title": "Select characters to farm"
 }
