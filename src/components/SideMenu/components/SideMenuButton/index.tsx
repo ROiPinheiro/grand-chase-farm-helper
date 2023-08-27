@@ -1,7 +1,14 @@
 import { Button } from "@chakra-ui/react";
+import { IconType } from "react-icons/lib";
 import { useLocation, Link } from "react-router-dom";
 
-function SideMenuButton({ to, text }: { to: string; text: string }) {
+interface OwnProps {
+  to: string;
+  Icon: IconType;
+  text: string;
+}
+
+function SideMenuButton({ to, Icon, text }: OwnProps) {
   const selectedButtonColor = "blue";
   const location = useLocation();
 
@@ -14,6 +21,8 @@ function SideMenuButton({ to, text }: { to: string; text: string }) {
           }
           size={"sm"}
           width={"full"}
+          leftIcon={<Icon />}
+          justifyContent={"initial"}
         >
           {text}
         </Button>

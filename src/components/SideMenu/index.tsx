@@ -1,5 +1,11 @@
 import { Divider } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
+import {
+  GoGear,
+  GoHome,
+  GoLinkExternal,
+  GoProjectRoadmap,
+} from "react-icons/go";
 import { Link } from "react-router-dom";
 import SideMenuButton from "./components/SideMenuButton";
 
@@ -15,13 +21,22 @@ export default function SideMenu() {
       </Link>
       <Divider />
       <ul className="pt-6">
-        <SideMenuButton to="/" text={t("side_menu_home")} />
+        <SideMenuButton to="/" Icon={GoHome} text={t("side_menu_home")} />
         <SideMenuButton
           to="/character-selection"
+          Icon={GoProjectRoadmap}
           text={t("side_menu_character_selection")}
         />
-        <SideMenuButton to="/options" text={t("side_menu_options")} />
-        <SideMenuButton to="/helper-links" text={t("side_menu_useful_links")} />
+        <SideMenuButton
+          to="/options"
+          Icon={GoGear}
+          text={t("side_menu_options")}
+        />
+        <SideMenuButton
+          to="/helper-links"
+          Icon={GoLinkExternal}
+          text={t("side_menu_useful_links")}
+        />
         {/* <SideMenuButton to="/places" text="Places to Farm" /> */}
       </ul>
     </aside>
