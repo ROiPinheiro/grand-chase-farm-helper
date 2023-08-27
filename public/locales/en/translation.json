@@ -1,4 +1,10 @@
 {
+  "side_menu_title": "Grand Chase Farm Helper",
+  "side_menu_home": "Home",
+  "side_menu_character_selection": "Character Selection",
+  "side_menu_options": "Options",
+  "side_menu_useful_links": "Useful Links",
+
   "options_select_language": "Select Language",
 
   "character_selection_title": "Select characters to farm"

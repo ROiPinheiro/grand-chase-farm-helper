@@ -1,93 +1,28 @@
-import { Button, Divider } from "@chakra-ui/react";
-import { Link, useLocation } from "react-router-dom";
-
-const selectedButtonColor = "blue";
+import { Divider } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import SideMenuButton from "./components/SideMenuButton";
 
 export default function SideMenu() {
-  const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <aside className="bg-slate-800 text-white p-4 flex-shrink-0 w-64 h-screen ">
       <Link to="/">
         <h2 className="text-3xl font-bold text-center pt-6 pb-6">
-          Grand Chase Farm Helper
+          {t("side_menu_title")}
         </h2>
       </Link>
       <Divider />
       <ul className="pt-6">
-        <li className="pb-2">
-          <Link to="/">
-            <Button
-              colorScheme={
-                location.pathname == "/" ? selectedButtonColor : undefined
-              }
-              size={"sm"}
-              width={"full"}
-            >
-              Home
-            </Button>
-          </Link>
-        </li>
-        <li className="pb-2">
-          <Link to="/character-selection">
-            <Button
-              colorScheme={
-                location.pathname == "/character-selection"
-                  ? selectedButtonColor
-                  : undefined
-              }
-              size={"sm"}
-              width={"full"}
-            >
-              Character Selection
-            </Button>
-          </Link>
-        </li>
-
-        <li className="pb-2">
-          <Link to="/places">
-            <Button
-              colorScheme={
-                location.pathname == "/places" ? selectedButtonColor : undefined
-              }
-              size={"sm"}
-              width={"full"}
-            >
-              Places to Farm
-            </Button>
-          </Link>
-        </li>
-
-        <li className="pb-2">
-          <Link to="/options">
-            <Button
-              colorScheme={
-                location.pathname == "/options"
-                  ? selectedButtonColor
-                  : undefined
-              }
-              size={"sm"}
-              width={"full"}
-            >
-              Options
-            </Button>
-          </Link>
-        </li>
-        <li className="pb-2">
-          <Link to="/helper-links">
-            <Button
-              colorScheme={
-                location.pathname == "/helper-links"
-                  ? selectedButtonColor
-                  : undefined
-              }
-              size={"sm"}
-              width={"full"}
-            >
-              Helper Links
-            </Button>
-          </Link>
-        </li>
+        <SideMenuButton to="/" text={t("side_menu_home")} />
+        <SideMenuButton
+          to="/character-selection"
+          text={t("side_menu_character_selection")}
+        />
+        <SideMenuButton to="/options" text={t("side_menu_options")} />
+        <SideMenuButton to="/helper-links" text={t("side_menu_useful_links")} />
+        {/* <SideMenuButton to="/places" text="Places to Farm" /> */}
       </ul>
     </aside>
   );
