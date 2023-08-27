@@ -1,11 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { defaultPlacesToFarm } from "../data/places-to-farm";
-
-interface PlaceToFarm {
-  id: number;
-  name: string;
-}
+import { defaultPlacesToFarm, PlaceToFarm } from "../data/places-to-farm";
 
 interface PlacesToFarmState {
   placesToFarm: PlaceToFarm[];
@@ -28,6 +23,8 @@ export const usePlacesToFarmStore = create<PlacesToFarmState>()(
             {
               id: lastPlace.id + 1,
               name: placeName,
+              openDays: [],
+              resetDays: [],
             },
           ],
         });
@@ -48,6 +45,7 @@ export const usePlacesToFarmStore = create<PlacesToFarmState>()(
     }),
     {
       name: "place-to-farm-storage",
+      version: 1,
     }
   )
 );

@@ -14,7 +14,7 @@ import { useEffect, useRef } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { PlaceToFarm } from "../../../data/places-to-farm";
 import { FarmPlace, useCharactersStore } from "../../../store/character-store";
-import { usePlacesToFarmStore } from "../../../store/places-to-farm-store";
+import { usePlacesToFarmStore } from "../../../store/PlacesToFarmStore";
 import { useSelectedCharacterStore } from "../../../store/SelectedCharacterStore";
 
 interface FromPlaceToFarm extends PlaceToFarm {
@@ -64,7 +64,8 @@ function CharacterModal() {
         id: item.id,
         name: item.name,
         completed: false,
-        reset: "DAILY",
+        openDays: [],
+        resetDays: [],
       };
     });
 
