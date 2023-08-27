@@ -7,7 +7,7 @@ export default function FloatActionButton() {
   return (
     <div
       onClick={toggleColorMode}
-      className="absolute cursor-pointer hover:opacity-70 bg-slate-600 bottom-4 right-4 p-3 rounded-full text-lg"
+      className="fixed cursor-pointer hover:opacity-70 bg-slate-600 bottom-4 right-4 p-3 rounded-full text-lg"
     >
       {colorMode == "dark" ? <GoMoon /> : <GoSun className="text-white" />}
     </div>
