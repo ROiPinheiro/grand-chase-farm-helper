@@ -6,7 +6,10 @@ function App() {
   return (
     <div className="flex">
       <SideMenu />
-      <Outlet />
+      <div className="ml-64 w-full">
+        <Outlet />
+      </div>
+
       <FloatActionButton />
     </div>
   );

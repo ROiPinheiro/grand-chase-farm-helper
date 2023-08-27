@@ -7,7 +7,7 @@ export default function SideMenu() {
   const { t } = useTranslation();
 
   return (
-    <aside className="bg-slate-800 text-white p-4 flex-shrink-0 w-64 h-auto">
+    <aside className="bg-slate-800 fixed text-white p-4 flex-shrink-0 w-64 h-screen">
       <Link to="/">
         <h2 className="text-3xl font-bold text-center pt-6 pb-6">
           {t("side_menu_title")}
