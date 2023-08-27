@@ -1,3 +1,6 @@
+import "./i18n/config";
+import "./index.css";
+
 import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 
@@ -11,11 +14,13 @@ const { ToastContainer } = createStandaloneToast();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <ChakraProvider
-      toastOptions={{ defaultOptions: { position: "top-right" } }}
-    >
-      <RouterProvider router={router} />
-      <ToastContainer />
-    </ChakraProvider>
+    <React.Suspense fallback={<div>Loading...</div>}>
+      <ChakraProvider
+        toastOptions={{ defaultOptions: { position: "top-right" } }}
+      >
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </ChakraProvider>
+    </React.Suspense>
   </React.StrictMode>
 );

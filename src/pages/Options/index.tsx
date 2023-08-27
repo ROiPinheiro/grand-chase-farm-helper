@@ -1,8 +1,10 @@
-import { Button, useColorMode } from "@chakra-ui/react";
+import { Button, Divider, useColorMode } from "@chakra-ui/react";
+
 import PageContent from "../../components/PageContent";
 import PageHeader from "../../components/PageHeader";
 import { useCharactersStore } from "../../store/character-store";
-import { usePlacesToFarmStore } from "../../store/places-to-farm-store";
+import { usePlacesToFarmStore } from "../../store/PlacesToFarmStore";
+import LanguageSelector from "./components/LanguageSelector";
 
 export default function OptionsPage() {
   const { hardReset } = usePlacesToFarmStore();
@@ -23,6 +25,9 @@ export default function OptionsPage() {
         <Button colorScheme="red" onClick={hardResetCharacters}>
           HARD RESET CHARACTER LIST
         </Button>
+        <Divider className="mt-4 mb-4" />
+
+        <LanguageSelector />
       </div>
     </PageContent>
   );
