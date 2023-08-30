@@ -13,13 +13,15 @@ export default function SideMenu() {
   const { t } = useTranslation();
 
   return (
-    <aside className="bg-slate-800 fixed text-white p-4 flex-shrink-0 w-64 h-screen">
-      <Link to="/">
-        <h2 className="text-3xl font-bold text-center pt-6 pb-6">
-          {t("side_menu_title")}
-        </h2>
-      </Link>
-      <Divider />
+    <aside className="bg-slate-800 fixed text-white p-4 flex-shrink-0 sm:w-64 w-16 h-screen">
+      <div className="sm:visible sm:h-auto h-0 invisible">
+        <Link to="/">
+          <h2 className="text-3xl font-bold text-center pt-6 pb-6">
+            {t("side_menu_title")}
+          </h2>
+        </Link>
+        <Divider />
+      </div>
       <ul className="pt-6">
         <SideMenuButton to="/" Icon={GoHome} text={t("side_menu_home")} />
         <SideMenuButton

@@ -24,7 +24,7 @@ function SideMenuButton({ to, Icon, text }: OwnProps) {
           leftIcon={<Icon />}
           justifyContent={"initial"}
         >
-          {text}
+          <span className="sm:flex hidden">{text}</span>
         </Button>
       </Link>
     </li>

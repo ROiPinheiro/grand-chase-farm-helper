@@ -3,6 +3,7 @@ import { Checkbox, Divider } from "@chakra-ui/react";
 
 import DailyFarmGridItemMenu from "./DailyFarmGridItemMenu";
 import ListTitle from "../ListTitle";
+import { t } from "i18next";
 
 export default function DailyFarmList() {
   const { selectedCharacters, checkFarmPlace } = useCharactersStore();
@@ -10,6 +11,7 @@ export default function DailyFarmList() {
   return (
     <>
       <ListTitle text="Daily farm list" />
+
       <div className="grid gap-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
         {selectedCharacters?.map((selectedChar) => (
           <div key={selectedChar.character.id}>
@@ -30,6 +32,12 @@ export default function DailyFarmList() {
                 </div>
 
                 <DailyFarmGridItemMenu selectedChar={selectedChar} />
+              </div>
+
+              <div>
+                {`${t("home_page_current_ta")} ${
+                  selectedChar.character.currentTA
+                }`}
               </div>
 
               <div className="grid sm:grid-cols-2 grid-cols-1 pt-2 pb-2 ">

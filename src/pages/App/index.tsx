@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="flex">
       <SideMenu />
-      <div className="ml-64 w-full">
+      <div className="sm:ml-64 ml-16 w-full">
         <Outlet />
       </div>
 

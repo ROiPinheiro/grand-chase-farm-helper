@@ -9,8 +9,12 @@ export interface FarmPlace extends PlaceToFarm {
   completed?: boolean;
 }
 
+export interface CharacterSelected extends Character {
+  currentTA: number;
+}
+
 export interface CharactersFarm {
-  character: Character;
+  character: CharacterSelected;
   selectedFarmPlaces: FarmPlace[];
 }
 
@@ -122,6 +126,31 @@ export const useCharactersStore = create<CharactersState>()(
     }),
     {
       name: "characters-storage",
+      migrate(persistedState, currentVersion) {
+        console.log(persistedState, currentVersion);
+
+        if (currentVersion === 0) {
+          const state = persistedState as CharactersState;
+
+          const updatedChars = state.selectedCharacters.map((char) => {
+            return {
+              character: {
+                ...char.character,
+                currentTA: 0,
+              },
+              selectedFarmPlaces: char.selectedFarmPlaces,
+            };
+          });
+
+          return {
+            ...state,
+            selectedCharacters: updatedChars,
+          };
+        }
+
+        return persistedState as CharactersState;
+      },
+      version: 1,
     }
   )
 );

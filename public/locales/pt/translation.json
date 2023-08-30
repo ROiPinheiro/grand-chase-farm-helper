@@ -1,10 +1,16 @@
 {
   "side_menu_title": "Grand Chase Farm Helper",
   "side_menu_home": "Início",
-  "side_menu_character_selection": "Seleção de Personagens",
+  "side_menu_character_selection": "Personagens",
   "side_menu_options": "Opções",
   "side_menu_useful_links": "Link's Úteis",
 
+  "home_page_title": "Início",
+  "home_page_current_ta": "Ataque total:",
+
+  "character_form_current_ta": "Ataque total:",
+
+  "options_page_title": "Opções",
   "options_select_language": "Selecione o Idioma",
 
   "useful_links_page_title": "Link's Úteis",
@@ -12,5 +18,5 @@
   "useful_links_damage_sheet": "Table de Danos Coreana",
   "useful_links_damage_calculator": "Calculadora de dano",
 
-  "character_selection_title": "Selecione os personagens para farmar"
+  "character_selection_title": "Personagens"
 }

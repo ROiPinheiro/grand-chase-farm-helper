@@ -9,9 +9,14 @@ import {
   AlertDialogFooter,
   Button,
   useDisclosure,
+  FormControl,
+  FormLabel,
+  NumberInput,
+  NumberInputField,
 } from "@chakra-ui/react";
 import { useEffect, useRef } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { PlaceToFarm } from "../../../data/places-to-farm";
 import { FarmPlace, useCharactersStore } from "../../../store/character-store";
 import { usePlacesToFarmStore } from "../../../store/PlacesToFarmStore";
@@ -23,9 +28,12 @@ interface FromPlaceToFarm extends PlaceToFarm {
 
 interface FormData {
   selectedFarmPlaces: FromPlaceToFarm[];
+  currentTA: number;
 }
 
 function CharacterModal() {
+  const { t } = useTranslation();
+
   const { placesToFarm } = usePlacesToFarmStore();
   const { addCharacter } = useCharactersStore();
   const { selectedCharacter, setCharacter } = useSelectedCharacterStore();
@@ -55,6 +63,13 @@ function CharacterModal() {
     );
 
     if (placesFiltered.length == 0) {
+      addCharacter({
+        character: {
+          ...selectedCharacter,
+          currentTA: data.currentTA,
+        },
+        selectedFarmPlaces: [],
+      });
       onClose();
       return;
     }
@@ -70,7 +85,10 @@ function CharacterModal() {
     });
 
     addCharacter({
-      character: selectedCharacter,
+      character: {
+        ...selectedCharacter,
+        currentTA: data.currentTA,
+      },
       selectedFarmPlaces: selected,
     });
     onClose();
@@ -113,8 +131,22 @@ function CharacterModal() {
               alt={selectedCharacter?.name ?? ""}
               width="32"
               height="32"
-              className="h-8 w-8"
+              className="h-8 w-8 mb-4"
             />
+
+            <Controller
+              control={control}
+              name="currentTA"
+              render={({ field }) => (
+                <FormControl>
+                  <FormLabel>{t("character_form_current_ta")}</FormLabel>
+                  <NumberInput max={1000000} min={1000}>
+                    <NumberInputField {...field} />
+                  </NumberInput>
+                </FormControl>
+              )}
+            />
+
             <div className="mt-4">
               <div className="grid grid-cols-2">
                 {fields.map((fieldItem, index) => {

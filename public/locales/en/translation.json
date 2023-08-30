@@ -1,10 +1,16 @@
 {
   "side_menu_title": "Grand Chase Farm Helper",
   "side_menu_home": "Home",
-  "side_menu_character_selection": "Character Selection",
+  "side_menu_character_selection": "Characters",
   "side_menu_options": "Options",
   "side_menu_useful_links": "Useful Links",
 
+  "home_page_title": "Home",
+  "home_page_current_ta": "Total Attack:",
+
+  "character_form_current_ta": "Total Attack:",
+
+  "options_page_title": "Options",
   "options_select_language": "Select Language",
 
   "useful_links_page_title": "Useful Links",
@@ -12,5 +18,5 @@
   "useful_links_damage_sheet": "PVE Damage Sheet",
   "useful_links_damage_calculator": "DamageCalculator",
 
-  "character_selection_title": "Select characters to farm"
+  "character_selection_title": "Characters"
 }
