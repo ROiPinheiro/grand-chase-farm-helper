@@ -1,16 +1,21 @@
+/* eslint-disable react-refresh/only-export-components */
 import {
   createBrowserRouter,
   createRoutesFromElements,
   Route,
 } from "react-router-dom";
 
-import CharacterSelectionPage from "../pages/CharacterSelection";
-import App from "../pages/App";
-import OptionsPage from "../pages/Options";
-import Home from "../pages/Home";
-import UsefulLinksPage from "../pages/UsefulLinks";
-import FarmPlacesPage from "../pages/FarmPlaces";
-import NotFoundPage from "../pages/NotFound";
+import React from "react";
+
+const App = React.lazy(() => import("../pages/App"));
+const CharacterSelectionPage = React.lazy(
+  () => import("../pages/CharacterSelection")
+);
+const OptionsPage = React.lazy(() => import("../pages/Options"));
+const Home = React.lazy(() => import("../pages/Home"));
+const UsefulLinksPage = React.lazy(() => import("../pages/UsefulLinks"));
+const FarmPlacesPage = React.lazy(() => import("../pages/FarmPlaces"));
+const NotFoundPage = React.lazy(() => import("../pages/NotFound"));
 
 export const router = createBrowserRouter(
   createRoutesFromElements(

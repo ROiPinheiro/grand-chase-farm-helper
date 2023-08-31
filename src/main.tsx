@@ -16,14 +16,12 @@ const { ToastContainer } = createStandaloneToast();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ErrorBoundary fallback={<div>Erro </div>}>
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <ChakraProvider
-          toastOptions={{ defaultOptions: { position: "top-right" } }}
-        >
-          <RouterProvider router={router} />
-          <ToastContainer />
-        </ChakraProvider>
-      </React.Suspense>
+      <ChakraProvider
+        toastOptions={{ defaultOptions: { position: "top-right" } }}
+      >
+        <RouterProvider router={router} />
+        <ToastContainer />
+      </ChakraProvider>
     </ErrorBoundary>
   </React.StrictMode>
 );
