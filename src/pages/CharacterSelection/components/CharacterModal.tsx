@@ -17,12 +17,12 @@ import {
 import { useEffect, useRef } from "react";
 import { Controller, useFieldArray, useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
-import { PlaceToFarm } from "../../../data/places-to-farm";
+import { Dungeon } from "../../../data/dungeons";
 import { FarmPlace, useCharactersStore } from "../../../store/character-store";
 import { usePlacesToFarmStore } from "../../../store/PlacesToFarmStore";
 import { useSelectedCharacterStore } from "../../../store/SelectedCharacterStore";
 
-interface FromPlaceToFarm extends PlaceToFarm {
+interface FromPlaceToFarm extends Dungeon {
   checked: boolean;
 }
 
@@ -34,19 +34,18 @@ interface FormData {
 function CharacterModal() {
   const { t } = useTranslation();
 
-  const { placesToFarm } = usePlacesToFarmStore();
+  const { dungeons } = usePlacesToFarmStore();
   const { addCharacter } = useCharactersStore();
   const { selectedCharacter, setCharacter } = useSelectedCharacterStore();
 
+  const cancelRef = useRef(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const { control, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
-      selectedFarmPlaces: placesToFarm,
+      selectedFarmPlaces: dungeons,
     },
   });
-
-  const cancelRef = useRef(null);
 
   const { fields } = useFieldArray({
     control,
@@ -66,7 +65,7 @@ function CharacterModal() {
       addCharacter({
         character: {
           ...selectedCharacter,
-          currentTA: data.currentTA,
+          currentTA: data.currentTA === undefined ? 0 : data.currentTA,
         },
         selectedFarmPlaces: [],
       });
@@ -79,15 +78,16 @@ function CharacterModal() {
         id: item.id,
         name: item.name,
         completed: false,
-        openDays: [],
-        resetDays: [],
+        openDays: item.openDays,
+        resetDays: item.resetDays,
+        type: item.type,
       };
     });
 
     addCharacter({
       character: {
         ...selectedCharacter,
-        currentTA: data.currentTA,
+        currentTA: data.currentTA === undefined ? 0 : data.currentTA,
       },
       selectedFarmPlaces: selected,
     });

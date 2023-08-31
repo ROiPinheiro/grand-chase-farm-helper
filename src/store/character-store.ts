@@ -1,11 +1,11 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { PlaceToFarm } from "../data/places-to-farm";
+import { Dungeon } from "../data/dungeons";
 import { createStandaloneToast } from "@chakra-ui/react";
 
 const { toast } = createStandaloneToast();
 
-export interface FarmPlace extends PlaceToFarm {
+export interface FarmPlace extends Dungeon {
   completed?: boolean;
 }
 
@@ -127,8 +127,6 @@ export const useCharactersStore = create<CharactersState>()(
     {
       name: "characters-storage",
       migrate(persistedState, currentVersion) {
-        console.log(persistedState, currentVersion);
-
         if (currentVersion === 0) {
           const state = persistedState as CharactersState;
 

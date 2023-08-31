@@ -1,19 +1,19 @@
 import { useEffect, useState } from "react";
 
-let interval = 0;
+const ONE_MINUTE_IN_MILLISECONDS = 60000;
 
 export default function useTimer() {
   const [actualDate, setActualDate] = useState(new Date());
 
   useEffect(() => {
-    interval = setInterval(() => setActualDate(new Date()), 1000);
+    const interval = setInterval(() => {
+      setActualDate(new Date());
+    }, ONE_MINUTE_IN_MILLISECONDS);
 
     return () => {
-      console.log("clear");
-
       clearInterval(interval);
     };
   }, [setActualDate]);
 
-  return [actualDate];
+  return { actualDate };
 }

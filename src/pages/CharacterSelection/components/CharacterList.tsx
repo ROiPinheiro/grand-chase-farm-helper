@@ -3,10 +3,19 @@ import { useCharactersStore } from "../../../store/character-store";
 import { useSelectedCharacterStore } from "../../../store/SelectedCharacterStore";
 
 import { Divider } from "@chakra-ui/react";
+import { useMemo } from "react";
 
 export default function CharacterList() {
   const { setCharacter } = useSelectedCharacterStore();
   const { selectedCharacters } = useCharactersStore();
+
+  const media = useMemo(() => {
+    const x = selectedCharacters.reduce((sum, curr) => {
+      return sum + Number(curr.character.currentTA);
+    }, 0);
+
+    return (x / selectedCharacters.length).toFixed(0);
+  }, [selectedCharacters]);
 
   function hasThisChar(char: Character): boolean {
     const finded = selectedCharacters.find(
@@ -18,6 +27,7 @@ export default function CharacterList() {
 
   return (
     <div>
+      {media}
       <div className="flex flex-shrink-0 flex-grow-0 flex-wrap">
         {characters.map((char) => (
           <div

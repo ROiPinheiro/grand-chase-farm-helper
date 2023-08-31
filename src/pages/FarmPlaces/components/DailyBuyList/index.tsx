@@ -1,41 +1,71 @@
 import { HamburgerIcon } from "@chakra-ui/icons";
 import { Divider, IconButton, Tooltip } from "@chakra-ui/react";
+import { useMemo } from "react";
 import { characters } from "../../../../data/characters";
-import { PlaceToFarm } from "../../../../data/places-to-farm";
+import { Dungeon, DungeonType } from "../../../../data/dungeons";
+import useTimer from "../../../../hooks/useTimer";
 import { usePlacesToFarmStore } from "../../../../store/PlacesToFarmStore";
-import ListTitle from "../ListTitle";
+import { ListDivider } from "./components/ListDivider";
 
 function DailyBuyList() {
-  const { placesToFarm } = usePlacesToFarmStore();
+  const { dungeons } = usePlacesToFarmStore();
+
+  const heroDungeons = useMemo(() => {
+    return dungeons.filter((d) => d.type === DungeonType.HERO_DUNGEON);
+  }, [dungeons]);
+
+  const basicDungeons = useMemo(() => {
+    return dungeons.filter((d) => d.type === DungeonType.DUNGEON);
+  }, [dungeons]);
+
+  const raids = useMemo(() => {
+    return dungeons.filter((d) => d.type === DungeonType.RAID);
+  }, [dungeons]);
 
   return (
     <>
-      <ListTitle text="SEI LA" />
+      <ListTitle text="Hero Dungeons" />
+      <ListDivider />
 
-      <div className="grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
-        {placesToFarm.map((place) => {
-          if (place.openDays.includes(2)) {
-            return (
-              <ListItem
-                key={place.id}
-                isComplete={place.id % 2 == 0}
-                isOpen
-                place={place}
-              />
-            );
-          } else {
-            return (
-              <ListItem
-                key={place.id}
-                isComplete={place.id % 2 == 0}
-                isOpen={false}
-                place={place}
-              />
-            );
-          }
-        })}
-      </div>
+      <PlaceList list={heroDungeons} />
+
+      <ListTitle text="Raids" />
+      <ListDivider />
+
+      <PlaceList list={raids} />
+
+      <ListTitle text="Dungeons" />
+      <ListDivider />
+
+      <PlaceList list={basicDungeons} />
     </>
+  );
+}
+
+function PlaceList({ list }: { list: Dungeon[] }) {
+  const { actualDate } = useTimer();
+
+  return (
+    <div className="grid  lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
+      {list.map((place) => {
+        return (
+          <ListItem
+            key={place.id}
+            isComplete={place.id % 2 == 0}
+            isOpen={place.openDays.includes(actualDate.getDay())}
+            place={place}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+function ListTitle({ text }: { text: string }) {
+  return (
+    <h3 className="bg-slate-700 text-white py-1 px-3 rounded-xl w-fit font-bold">
+      {text}
+    </h3>
   );
 }
 
@@ -46,7 +76,7 @@ function ListItem({
   isComplete = false,
   isOpen,
 }: {
-  place: PlaceToFarm;
+  place: Dungeon;
   isComplete: boolean;
   isOpen: boolean;
 }) {
@@ -86,10 +116,13 @@ function ListItem({
               <div
                 className={`${
                   isComplete || !isOpen ? "bg-gray-900" : ""
-                }  absolute w-8 h-8 opacity-80`}
+                }  absolute w-8 h-8 rounded-full opacity-80`}
               />
 
-              <img src={c.src} className="h-8 w-8" />
+              <img
+                src={c.src}
+                className="h-full max-h-8 w-full max-w-fit rounded-full object-cover"
+              />
             </button>
           </Tooltip>
         ))}

@@ -1,51 +1,52 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import { defaultPlacesToFarm, PlaceToFarm } from "../data/places-to-farm";
+import { defaultDungeons, Dungeon, DungeonType } from "../data/dungeons";
 
 interface PlacesToFarmState {
-  placesToFarm: PlaceToFarm[];
+  dungeons: Dungeon[];
   addPlaceToFarm: (placeName: string) => void;
-  removePlaceToFarm: (placeToRemove: PlaceToFarm) => void;
+  removePlaceToFarm: (placeToRemove: Dungeon) => void;
   hardReset: () => void;
 }
 
 export const usePlacesToFarmStore = create<PlacesToFarmState>()(
   persist(
     (set, get) => ({
-      placesToFarm: defaultPlacesToFarm,
+      dungeons: defaultDungeons,
       addPlaceToFarm(placeName) {
-        const places = get().placesToFarm;
+        const places = get().dungeons;
         const lastPlace = places[places.length - 1];
 
         set({
-          placesToFarm: [
-            ...get().placesToFarm,
+          dungeons: [
+            ...get().dungeons,
             {
               id: lastPlace.id + 1,
               name: placeName,
               openDays: [],
               resetDays: [],
+              type: DungeonType.DUNGEON,
             },
           ],
         });
       },
       removePlaceToFarm(placeToRemove) {
-        const places = get().placesToFarm;
+        const places = get().dungeons;
         const filteredPlaces = places.filter(
           (place) => place.id != placeToRemove.id
         );
 
         set({
-          placesToFarm: filteredPlaces,
+          dungeons: filteredPlaces,
         });
       },
       hardReset() {
-        set({ placesToFarm: defaultPlacesToFarm });
+        set({ dungeons: defaultDungeons });
       },
     }),
     {
-      name: "place-to-farm-storage",
-      version: 1,
+      name: "dungeons-store",
+      version: 0,
     }
   )
 );

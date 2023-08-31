@@ -25,9 +25,14 @@ export default function SideMenu() {
       <ul className="pt-6">
         <SideMenuButton to="/" Icon={GoHome} text={t("side_menu_home")} />
         <SideMenuButton
-          to="/character-selection"
+          to="/characters"
           Icon={GoProjectRoadmap}
           text={t("side_menu_character_selection")}
+        />
+        <SideMenuButton
+          to="/dailies"
+          Icon={GoProjectRoadmap}
+          text={t("side_menu_daily")}
         />
         <SideMenuButton
           to="/options"
@@ -39,7 +44,6 @@ export default function SideMenu() {
           Icon={GoLinkExternal}
           text={t("side_menu_useful_links")}
         />
-        {/* <SideMenuButton to="/places" text="Places to Farm" /> */}
       </ul>
     </aside>
   );
